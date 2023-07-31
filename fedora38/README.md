@@ -11,8 +11,8 @@ And how to make it work. Perform these steps in order:
 
 These need to be verified:
 
-[x] do we need to enable debug mode in `cms_common.h` and `daemon.h`? No.
-[] does my user account need to be in the `pesign` Unix group?
-[] does SELinux need to be disabled?
-[] what's the relation of all these to the entries in `/etc/pesign/users` and `/etc/pesign/groups` and what happens once the files and `/usr/libexec/pesign/pesign-authorize` are finally deprecated?
-[] what happens after the reinstallation that makes all this work fine?
+- [x] do we need to enable debug mode in `cms_common.h` and `daemon.h`? No.
+- [ ] does my user account need to be in the `pesign` Unix group?
+- [ ] does SELinux need to be disabled?
+- [ ] what's the relation of all these to the entries in `/etc/pesign/users` and `/etc/pesign/groups` and what happens once the files and `/usr/libexec/pesign/pesign-authorize` are finally deprecated?
+- [ ] what happens after the reinstallation that makes all this work fine?
