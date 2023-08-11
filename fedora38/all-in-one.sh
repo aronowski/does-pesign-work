@@ -15,7 +15,7 @@ modutil -dbdir /etc/pki/pesign -list
 git clone https://github.com/rhboot/shim.git --depth 1
 cd shim
 ./make-certs example
-pk12util -K ${PESIGN_TOKEN_PIN} -i example.p12 -d /etc/pki/pesign -h HSM
+pk12util -k <(echo "${PESIGN_TOKEN_PIN}") -w /dev/zero -i example.p12 -d /etc/pki/pesign -h HSM
 
 # permission fixes to be applied only after the .p12 import
 sudo chmod -R 777 /var/lib/softhsm/
