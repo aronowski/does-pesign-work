@@ -7,15 +7,15 @@ sudo usermod -a -G pesign vagrant
 
 sudo setenforce 0 ; sudo grubby --update-kernel ALL --args selinux=0
 
-softhsm2-util --init-token --label HSM --so-pin Secret.123 --pin Secret.123 --free
 export PESIGN_TOKEN_PIN="Secret.123"
+softhsm2-util --init-token --label HSM --so-pin ${PESIGN_TOKEN_PIN} --pin ${PESIGN_TOKEN_PIN} --free
 modutil -dbdir /etc/pki/pesign -list
 
 # .p12 stuff
 git clone https://github.com/rhboot/shim.git --depth 1
 cd shim
 ./make-certs example
-pk12util -i example.p12 -d /etc/pki/pesign -h HSM
+pk12util -K ${PESIGN_TOKEN_PIN} -i example.p12 -d /etc/pki/pesign -h HSM
 
 # permission fixes to be applied only after the .p12 import
 sudo chmod -R 777 /var/lib/softhsm/
