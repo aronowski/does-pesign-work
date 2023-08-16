@@ -24,14 +24,9 @@ sudo /usr/libexec/pesign/pesign-authorize
 
 sudo dnf reinstall -y pesign && sudo systemctl start pesign
 
-sudo chmod -R 777 /var/lib/softhsm/ # one more time?
-pesign-client -u -t HSM || sudo journalctl --no-pager --unit=pesign.service --output=cat # OSSLEVPSymmetricAlgorithm.cpp(512): EVP_DecryptFinal failed (0x00000000): error:1C800064:Provider routines::bad decrypt
-#pesign-client --is-unlocked --token HSM
-#
-## let's try signing shimx64.efi
-#dnf download shim
-#rpmdev-extract shim-x64-*.x86_64.rpm
-#pushd /home/vagrant/shim-x64-*.x86_64/boot/efi/EFI/fedora
-#pesign --remove-signature --signature-number=0 --in=./shimx64.efi --out=./shimx64.efi.unsigned
-#pesign-client -t HSM -c example -i ./shimx64.efi.unsigned -o ./shimx64.efi.signed -s && echo "Signing works!"
-#popd
+pesign-client -u -t HSM || sudo journalctl --no-pager --unit=pesign.service --output=cat
+
+# An error message like below should be printed, but it's not, unless SSHing to the vagrant box and running the unlock command manually.
+# OSSLEVPSymmetricAlgorithm.cpp(512): EVP_DecryptFinal failed (0x00000000): error:1C800064:Provider routines::bad decrypt
+# In regard to https://stackoverflow.com/questions/34304570/how-to-resolve-the-evp-decryptfinal-ex-bad-decrypt-during-file-decryption, Was there some mismatch regarding OpenSSL versions when different applications were being compiled (openssl, pesign, softhsm, etc.) or something?
+
