@@ -32,5 +32,5 @@ dnf download shim
 rpmdev-extract shim-x64-*.x86_64.rpm
 pushd /home/vagrant/shim-x64-*.x86_64/boot/efi/EFI/fedora
 pesign --remove-signature --signature-number=0 --in=./shimx64.efi --out=./shimx64.efi.unsigned
-pesign-client -t HSM -c example -i ./shimx64.efi.unsigned -o ./shimx64.efi.signed -s 
+pesign-client -t HSM -c example -i ./shimx64.efi.unsigned -o ./shimx64.efi.signed -s && echo "Signing works!"
 popd
