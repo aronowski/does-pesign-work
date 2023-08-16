@@ -25,12 +25,13 @@ sudo /usr/libexec/pesign/pesign-authorize
 sudo dnf reinstall -y pesign && sudo systemctl start pesign
 
 pesign-client -u -t HSM #fail for unknown reason?
-pesign-client --is-unlocked --token HSM
-
-# let's try signing shimx64.efi
-dnf download shim
-rpmdev-extract shim-x64-*.x86_64.rpm
-pushd /home/vagrant/shim-x64-*.x86_64/boot/efi/EFI/fedora
-pesign --remove-signature --signature-number=0 --in=./shimx64.efi --out=./shimx64.efi.unsigned
-pesign-client -t HSM -c example -i ./shimx64.efi.unsigned -o ./shimx64.efi.signed -s && echo "Signing works!"
-popd
+sudo journalctl --no-pager --unit=pesign.service --output=cat # OSSLEVPSymmetricAlgorithm.cpp(512): EVP_DecryptFinal failed (0x00000000): error:1C800064:Provider routines::bad decrypt
+#pesign-client --is-unlocked --token HSM
+#
+## let's try signing shimx64.efi
+#dnf download shim
+#rpmdev-extract shim-x64-*.x86_64.rpm
+#pushd /home/vagrant/shim-x64-*.x86_64/boot/efi/EFI/fedora
+#pesign --remove-signature --signature-number=0 --in=./shimx64.efi --out=./shimx64.efi.unsigned
+#pesign-client -t HSM -c example -i ./shimx64.efi.unsigned -o ./shimx64.efi.signed -s && echo "Signing works!"
+#popd
