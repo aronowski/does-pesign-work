@@ -24,6 +24,7 @@ sudo /usr/libexec/pesign/pesign-authorize
 
 sudo dnf reinstall -y pesign && sudo systemctl start pesign
 
+sudo chmod -R 777 /var/lib/softhsm/ # one more time?
 pesign-client -u -t HSM || sudo journalctl --no-pager --unit=pesign.service --output=cat # OSSLEVPSymmetricAlgorithm.cpp(512): EVP_DecryptFinal failed (0x00000000): error:1C800064:Provider routines::bad decrypt
 #pesign-client --is-unlocked --token HSM
 #
